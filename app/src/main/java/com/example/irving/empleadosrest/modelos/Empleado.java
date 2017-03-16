@@ -1,6 +1,8 @@
 package com.example.irving.empleadosrest.modelos;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Irving on 13/03/2017.
@@ -12,7 +14,34 @@ public class Empleado
     private String apellido;
     private int Sexo;
     private double Sueldo;
+    private String email;
     private Date Fecha_nacimineto;
+
+    public Empleado(String apellido, Date fecha_nacimineto,
+                    Date fecha_registro, int id, String nombre, int sexo, double sueldo ,String correo) {
+        this.apellido = apellido;
+        Fecha_nacimineto = fecha_nacimineto;
+        Fecha_registro = fecha_registro;
+        this.id = id;
+        this.nombre = nombre;
+        this.email=correo;
+        Sexo = sexo;
+        Sueldo = sueldo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Empleado()
+    {
+
+    }
+
     private Date Fecha_registro;
 
 
@@ -70,6 +99,10 @@ public class Empleado
 
     public void setSueldo(double sueldo) {
         Sueldo = sueldo;
+    }
+    public String getDateAndTimeForList() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        return sdf.format(Fecha_nacimineto);
     }
 
 
