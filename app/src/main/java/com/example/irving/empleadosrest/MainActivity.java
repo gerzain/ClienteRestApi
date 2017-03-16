@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayout;
     private List<Empleado> empleados;
     private Date date;
+    private Date dia_nacimiento;
+    private String TAG=MainActivity.this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,39 +51,6 @@ public class MainActivity extends AppCompatActivity {
         ServicioWeb();
 
     }
-   /* private void obtenerDatos()
-    {
-        EmpleadosService service=ClienteRetrofit.getClient().create(EmpleadosService.class);
-        Call<EmepleadosResponse> emepleadosResponseCall=service.getEmpleados();
-
-        System.out.println("url: " +emepleadosResponseCall.request().url());
-
-        emepleadosResponseCall.enqueue(new Callback<EmepleadosResponse>()
-        {
-            @Override
-            public void onResponse(Call<EmepleadosResponse> call, Response<EmepleadosResponse> response)
-            {
-                if(response.isSuccessful())
-                {
-                    EmepleadosResponse emepleadosResponse=response.body();
-                    ArrayList<Empleado> empleados=emepleadosResponse.getEmpleados();
-                    empleadoAdapter=new EmpleadoAdapter(empleados);
-                    recyclerView.setAdapter(empleadoAdapter);
-                }
-                else
-                {
-                    Log.e("MainActivity", " response>>error: " + response.errorBody());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<EmepleadosResponse> call, Throwable t)
-            {
-                Log.e("MainActivity", " onFailure: " + t.getMessage());
-            }
-        });
-
-    }*/
 
     private void ServicioWeb()
     {
@@ -103,16 +72,18 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < conten.length(); i++)
                     {
                         JSONObject object=conten.getJSONObject(i);
-
+                        int id=object.getInt("id");
                         String nombre= object.getString("Nombre");
                         String apellido=object.getString("Apellido");
+                        String email=object.getString("Correo");
                         double sueldo=object.getDouble("Sueldo");
                         String fecha_nacimiento=object.getString("FechaNacimiento");
                         String fecha_registro=object.getString("FechaRegistro");
                         SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                        try {
-                          date= dateFormat.parse(fecha_nacimiento);
-                            date=dateFormat.parse(fecha_registro);
+                        try
+                        {
+                                 date= dateFormat.parse(fecha_nacimiento);
+                                 dia_nacimiento=dateFormat.parse(fecha_registro);
                         } catch (ParseException e)
                         {
                             e.printStackTrace();
@@ -123,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
                         emp.setNombre(nombre);
                         emp.setApellido(apellido);
                         emp.setSueldo(sueldo);
-                        emp.setFecha_nacimineto(date);
+                        emp.setFecha_registro(date);
+                        emp.setFecha_nacimineto(dia_nacimiento);
+                        emp.setEmail(email);
                         adptador=new AdaptadorEmpleado(empleados);
                         recyclerView.setAdapter(adptador);
                         empleados.add(emp);
@@ -145,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-
+                Log.e(TAG,"OnError"+error.toString());
             }
         });
         queue.add(request);
