@@ -27,7 +27,7 @@
         android:paddingTop="8dp">
 
         <TextView
-            android:id="@+id/text_appointment_date"
+            android:id="@+id/text_fecha_registro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -41,12 +41,12 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_toEndOf="@+id/text_appointment_date"
-            android:layout_toRightOf="@+id/text_appointment_date"
+            android:layout_toEndOf="@+id/text_fecha_registro"
+            android:layout_toRightOf="@+id/text_fecha_registro"
             android:background="#E0E0E0" />
 
         <TextView
-            android:id="@+id/tv_sexo"
+            android:id="@+id/tv_nombre"
             style="@style/Base.TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,13 +57,13 @@
             tools:text="Nombre " />
 
         <TextView
-            android:id="@+id/text_doctor_name"
+            android:id="@+id/text_apellido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_sexo"
-            android:layout_alignStart="@+id/tv_sexo"
-            android:layout_below="@id/tv_sexo"
-            tools:text="exmaple@gmail.com" />
+            android:layout_alignLeft="@+id/tv_nombre"
+            android:layout_alignStart="@+id/tv_nombre"
+            android:layout_below="@id/tv_nombre"
+            tools:text="Apellido" />
 
 
 
@@ -71,19 +71,27 @@
             android:id="@+id/text_medical_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/text_doctor_name"
-            android:layout_alignStart="@+id/text_doctor_name"
-            android:layout_below="@+id/text_doctor_name"
+            android:layout_alignLeft="@+id/text_apellido"
+            android:layout_alignStart="@+id/text_apellido"
+            android:layout_below="@+id/text_apellido"
             android:ellipsize="end"
             android:maxLines="1"
             tools:text="Sueldo" />
         <TextView
             android:id="@+id/tv_fechanacimiento"
             android:layout_width="wrap_content"
-            android:layout_alignLeft="@+id/text_doctor_name"
-            android:layout_alignStart="@+id/text_doctor_name"
+            android:layout_alignLeft="@+id/text_apellido"
+            android:layout_alignStart="@+id/text_apellido"
             android:layout_below="@+id/text_medical_center"
             tools:text="2017-04-11"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_alignLeft="@+id/tv_fechanacimiento"
+            android:layout_alignStart="@+id/tv_fechanacimiento"
+            android:layout_below="@+id/tv_fechanacimiento"
+            tools:text="example@gmail.com"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
