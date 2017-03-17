@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private AdaptadorEmpleado adptador;
     private LinearLayoutManager linearLayout;
     private List<Empleado> empleados;
-    private Date date;
-    private Date dia_nacimiento;
     private String TAG=MainActivity.this.getClass().getSimpleName();
 
     @Override
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private void ServicioWeb()
     {
         final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());//Creamos instancia de RequestQueue con el contexto como parametro
-        String url = "http://192.168.1.68/slim_app/public/usuarios/getAll";
+        String url = "http://192.168.1.68/slim_app/public//empleados/getAll";
         StringRequest request=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)
@@ -63,10 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 try
                 {
 
-                    JSONObject result = new JSONObject(response);
-                     //  Log.d(">>>",result.toString());
-                    JSONArray conten=result.getJSONArray("result");
-                    //Log.d("Respuesta",conten.toString());
+                    JSONArray conten=new JSONArray(response);
+
 
 
                     for (int i = 0; i < conten.length(); i++)
@@ -76,33 +73,23 @@ public class MainActivity extends AppCompatActivity {
                         String nombre= object.getString("Nombre");
                         String apellido=object.getString("Apellido");
                         String email=object.getString("Correo");
-                        double sueldo=object.getDouble("Sueldo");
+                        String sueldo=object.getString("Sueldo");
                         String fecha_nacimiento=object.getString("FechaNacimiento");
                         String fecha_registro=object.getString("FechaRegistro");
-                        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                        try
-                        {
-                                 date= dateFormat.parse(fecha_nacimiento);
-                                 dia_nacimiento=dateFormat.parse(fecha_registro);
-                        } catch (ParseException e)
-                        {
-                            e.printStackTrace();
-                        }
+                        String profesion=object.getString("Nombre_profesion");
+                        int genero=object.getInt("Sexo");
 
-                        Gson gson=new Gson();
-                        Empleado emp=gson.fromJson(response,Empleado.class);
+                        Empleado emp=new Empleado(apellido,email,
+                                fecha_nacimiento,fecha_registro,id,nombre,profesion,genero,sueldo);
                         emp.setNombre(nombre);
                         emp.setApellido(apellido);
                         emp.setSueldo(sueldo);
-                        emp.setFecha_registro(date);
-                        emp.setFecha_nacimineto(dia_nacimiento);
-                        emp.setEmail(email);
+                        emp.setFechaNacimiento(fecha_nacimiento);
+                        emp.setFechaRegistro(fecha_registro);
+                        emp.setCorreo(email);
                         adptador=new AdaptadorEmpleado(empleados);
                         recyclerView.setAdapter(adptador);
                         empleados.add(emp);
-
-
-
                     }
 
 
