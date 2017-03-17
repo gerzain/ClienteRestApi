@@ -1,5 +1,8 @@
 package com.example.irving.empleadosrest.modelos;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -9,41 +12,47 @@ import java.util.Locale;
  */
 public class Empleado
 {
-    private  int id;
-    private String nombre;
-    private String apellido;
-    private int Sexo;
-    private double Sueldo;
-    private String email;
-    private Date Fecha_nacimineto;
 
-    public Empleado(String apellido, Date fecha_nacimineto,
-                    Date fecha_registro, int id, String nombre, int sexo, double sueldo ,String correo) {
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("Nombre")
+    @Expose
+    private String nombre;
+    @SerializedName("Correo")
+    @Expose
+    private String correo;
+    @SerializedName("Apellido")
+    @Expose
+    private String apellido;
+    @SerializedName("Sexo")
+    @Expose
+    private int sexo;
+    @SerializedName("Sueldo")
+    @Expose
+    private String sueldo;
+    @SerializedName("FechaNacimiento")
+    @Expose
+    private String fechaNacimiento;
+
+    public Empleado(String apellido, String correo, String fechaNacimiento, String fechaRegistro, int id, String nombre, String nombreProfesion, int sexo, String sueldo) {
         this.apellido = apellido;
-        Fecha_nacimineto = fecha_nacimineto;
-        Fecha_registro = fecha_registro;
+        this.correo = correo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.fechaRegistro = fechaRegistro;
         this.id = id;
         this.nombre = nombre;
-        this.email=correo;
-        Sexo = sexo;
-        Sueldo = sueldo;
+        this.nombreProfesion = nombreProfesion;
+        this.sexo = sexo;
+        this.sueldo = sueldo;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Empleado()
-    {
-
-    }
-
-    private Date Fecha_registro;
-
+    @SerializedName("FechaRegistro")
+    @Expose
+    private String fechaRegistro;
+    @SerializedName("Nombre_profesion")
+    @Expose
+    private String nombreProfesion;
 
     public String getApellido() {
         return apellido;
@@ -53,20 +62,28 @@ public class Empleado
         this.apellido = apellido;
     }
 
-    public Date getFecha_nacimineto() {
-        return Fecha_nacimineto;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setFecha_nacimineto(Date fecha_nacimineto) {
-        Fecha_nacimineto = fecha_nacimineto;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public Date getFecha_registro() {
-        return Fecha_registro;
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFecha_registro(Date fecha_registro) {
-        Fecha_registro = fecha_registro;
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public int getId() {
@@ -85,25 +102,43 @@ public class Empleado
         this.nombre = nombre;
     }
 
+    public String getNombreProfesion() {
+        return nombreProfesion;
+    }
+
+    public void setNombreProfesion(String nombreProfesion) {
+        this.nombreProfesion = nombreProfesion;
+    }
+
     public int getSexo() {
-        return Sexo;
+        return sexo;
     }
 
     public void setSexo(int sexo) {
-        Sexo = sexo;
+        this.sexo = sexo;
     }
 
-    public double getSueldo() {
-        return Sueldo;
+    public String getSueldo() {
+        return sueldo;
     }
 
-    public void setSueldo(double sueldo) {
-        Sueldo = sueldo;
-    }
-    public String getDateAndTimeForList() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        return sdf.format(Fecha_nacimineto);
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "apellido='" + apellido + '\'' +
+                ", id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", sexo=" + sexo +
+                ", sueldo='" + sueldo + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                ", fechaRegistro='" + fechaRegistro + '\'' +
+                ", nombreProfesion='" + nombreProfesion + '\'' +
+                '}';
     }
 
+    public void setSueldo(String sueldo) {
+        this.sueldo = sueldo;
+    }
 
 }
