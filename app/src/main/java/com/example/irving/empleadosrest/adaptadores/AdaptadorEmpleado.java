@@ -39,10 +39,10 @@ public class AdaptadorEmpleado extends RecyclerView.Adapter<AdaptadorEmpleado.Vi
         Empleado empleado=dataset.get(position);
         holder.nombre.setText(empleado.getNombre());
         holder.apellido.setText(empleado.getApellido());
-        holder.sueldo.setText("$"+String.valueOf(empleado.getSueldo()) );
-        holder.fecha_nacimiento.setText(empleado.getDateAndTimeForList());
-        holder.fecha_registro.setText(empleado.getDateAndTimeForList());
-        holder.email.setText(empleado.getEmail());
+        holder.sueldo.setText(empleado.getSueldo() );
+        holder.fecha_nacimiento.setText(empleado.getFechaNacimiento());
+        holder.fecha_registro.setText(empleado.getFechaRegistro());
+        holder.email.setText(empleado.getCorreo());
     }
 
     @Override
