@@ -1,5 +1,6 @@
 package com.example.irving.empleadosrest;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.irving.empleadosrest.adaptadores.AdaptadorEmpleado;
+import com.example.irving.empleadosrest.adaptadores.utilidades.OnClickItem;
 import com.example.irving.empleadosrest.modelos.Empleado;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -30,12 +32,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements OnClickItem{
 
     private RecyclerView recyclerView;
     private AdaptadorEmpleado adptador;
     private LinearLayoutManager linearLayout;
-    private List<Empleado> empleados;
+    private ArrayList<Empleado> empleados;
     private String TAG=MainActivity.this.getClass().getSimpleName();
 
     @Override
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         linearLayout=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayout);
         empleados=new ArrayList<>();
+        adptador=new AdaptadorEmpleado(this);
+        recyclerView.setAdapter(adptador);
         ServicioWeb();
 
     }
@@ -63,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 {
 
                     JSONArray conten=new JSONArray(response);
-
-
 
                     for (int i = 0; i < conten.length(); i++)
                     {
@@ -87,9 +89,11 @@ public class MainActivity extends AppCompatActivity {
                         emp.setFechaNacimiento(fecha_nacimiento);
                         emp.setFechaRegistro(fecha_registro);
                         emp.setCorreo(email);
-                        adptador=new AdaptadorEmpleado(empleados);
-                        recyclerView.setAdapter(adptador);
+                       // adptador=new AdaptadorEmpleado(empleados,this);
+                       // recyclerView.setAdapter(adptador);
                         empleados.add(emp);
+                        adptador.setDataset(empleados);
+                        recyclerView.setAdapter(adptador);
                     }
 
 
@@ -113,7 +117,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @Override
+    public void onItemClick(Empleado empleado) {
+        Log.d("Click","LOL");
+        Intent intent=new Intent(this,EditarEmpleado.class);
+        intent.putExtra("id", empleado.getId());
+        intent.putExtra("nombre",empleado.getNombre());
+        intent.putExtra("apellido",empleado.getApellido());
+        intent.putExtra("correo",empleado.getCorreo());
+        intent.putExtra("fecha_nac",empleado.getFechaNacimiento());
+        intent.putExtra("fecha_reg",empleado.getFechaRegistro());
+        intent.putExtra("profesion",empleado.getNombreProfesion());
+        intent.putExtra("sueldo",empleado.getSueldo());
 
+        startActivity(intent);
 
-
+    }
 }
